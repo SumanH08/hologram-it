@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: #eeeeee;
+}
+
+.img-settings {
+  width: 64px;
+  height: 64px;
+}
+
+.img-stack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+}
+
+.settings {
+}
