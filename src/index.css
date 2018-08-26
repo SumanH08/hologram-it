@@ -1,13 +1,15 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Titillium Web", sans-serif;
   background-color: #eeeeee;
 }
 
 .img-settings {
   width: 64px;
   height: 64px;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
 }
 
 .img-stack {
@@ -17,5 +19,21 @@ body {
   max-width: 100%;
 }
 
+.wrapper {
+  padding: 24px;
+}
+
 .settings {
+  background: #fff;
+  height: 464px;
+  overflow: scroll;
+}
+
+.app-desc {
+  padding: 24px;
+}
+
+.each-layer {
+  padding: 8px;
+  margin: 8px;
 }

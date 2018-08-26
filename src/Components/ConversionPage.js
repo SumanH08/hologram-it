@@ -5,6 +5,7 @@ import UploadPhoto from "./UploadPhoto.js";
 import Settings from "./Settings.js";
 import View from "./View.js";
 import Simulate from "./Simulate.js";
+import FileControls from "./FileControls.js";
 
 class ConversionPage extends Reflux.Component {
   constructor(props) {
@@ -16,10 +17,12 @@ class ConversionPage extends Reflux.Component {
       }),
       alpha: 0,
       beta: 0,
-      gamma: 0
+      gamma: 0,
+      isRotating: false
     };
-    let isRotating = false,
-      timerId;
+
+    this.timerId = false;
+    this.factor = 1;
   }
 
   setValue = (value, i) => {
@@ -41,41 +44,58 @@ class ConversionPage extends Reflux.Component {
     this.setState({ layers: temp2Arr });
   };
 
-  Simulate = isChecked => {
-    this.isRotating = isChecked;
-    if (this.isRotating) {
-      this.setTimer();
-    }
-    if (!this.isRotating) {
-      this.stopTimer();
-    }
+  simulate = isChecked => {
+    // this.isRotating = isChecked;
+    this.setState({ isRotating: isChecked }, function() {
+      if (this.state.isRotating) {
+        this.setTimer();
+      }
+      if (!this.state.isRotating) {
+        this.stopTimer();
+      }
+    });
   };
 
   // TODO: ask eb why when i call this,simulateValue(), it wont work, but it works if i say this.simulateValues without brackets. how does the this work here
 
   setTimer = () => {
-    this.timerId = setInterval(this.simulateValues, 500);
+    this.timerId = setInterval(this.simulateValues, 50);
   };
 
   simulateValues = () => {
-    this.setState({
-      alpha: this.state.alpha + 1,
-      beta: this.state.beta + 2,
-      gamma: this.state.gamma + 1
-    });
+    this.setState(
+      {
+        alpha: this.state.alpha + this.factor,
+        beta: this.state.beta + this.factor
+      },
+      function() {
+        if (this.state.alpha === 10) {
+          this.factor = -1;
+        } else if (this.state.alpha === -10) {
+          this.factor = 1;
+        }
+      }
+    );
 
-    // this.setState(prevState => ({
-    //   alpha: prevState.alpha + 1
-    // }));
-    this.setState({
-      alpha: this.state.alpha > 4 ? 8 - this.state.alpha : this.state.alpha,
-      beta: this.state.beta > 4 ? 8 - this.state.beta : this.state.beta,
-      gamma: this.state.gamma > 4 ? 8 - this.state.gamma : this.state.gamma
-    });
+    // this.setState(
+    //   prevState => ({
+    //     alpha: prevState.alpha + this.factor
+    //   }),
+    //   function() {
+    //     if (this.state.alpha === 180) {
+    //       this.factor = -1;
+    //     } else if (this.state.alpha === -180) {
+    //       this.factor = 1;
+    //     }
+    //   }
+    // );
+
+    //once alpha 180, start to dec till = -180, after that inc till 180, once you stop th timer, alpha and beta 0
   };
 
   stopTimer = () => {
     clearInterval(this.timerId);
+    this.setState({ alpha: 0, beta: 0 });
   };
 
   render() {
@@ -85,7 +105,7 @@ class ConversionPage extends Reflux.Component {
     } else {
       checkPhoto = (
         <View
-          isRotating={this.props.isRotating}
+          isRotating={this.state.isRotating}
           alpha={this.state.alpha}
           beta={this.state.beta}
           gamma={this.state.gamma}
@@ -94,20 +114,25 @@ class ConversionPage extends Reflux.Component {
       );
     }
     return (
-      <Container>
-        <Row>
-          <Col xs="6">{checkPhoto}</Col>
-          <Col xs="6">
-            <Settings
-              handleChange={this.setValue}
-              handlePlus={this.increaseValue}
-              handleMinus={this.decreaseValue}
-              layers={this.state.layers}
-            />
-            <Simulate handleSimulation={this.Simulate} />
-          </Col>
-        </Row>
-      </Container>
+      <div className="wrapper">
+        <Container>
+          <Row>
+            <Col lg="8" md="8" sm="8" xs="8">
+              {checkPhoto}
+            </Col>
+            <Col lg="4" md="4" sm="4" xs="4">
+              <FileControls />
+              <Settings
+                handleChange={this.setValue}
+                handlePlus={this.increaseValue}
+                handleMinus={this.decreaseValue}
+                layers={this.state.layers}
+              />
+              <Simulate handleSimulation={this.simulate} />
+            </Col>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }

@@ -3,11 +3,11 @@ import Reflux from "reflux";
 
 class View extends Reflux.Component {
   render() {
-    console.log("Inside view", this.props.alpha);
-
-    let stackImages = this.props.layers.map((item, i) => {
+    const { layers, isRotating, alpha, beta } = this.props;
+    let stackImages = layers.map((item, i) => {
       let unit;
-      if (this.props.isRotating) {
+      console.log("VAl here", item.val);
+      if (isRotating) {
         unit = item.val;
       } else {
         unit = 1;
@@ -16,10 +16,8 @@ class View extends Reflux.Component {
         <img
           style={{
             zIndex: -1 * i,
-            top: `${item.val * this.props.beta}px`,
-            left: `${item.val * this.props.alpha}px`,
-            bottom: `${item.val * this.props.beta}px`,
-            right: `${item.val * this.props.gamma}px`
+            top: `${alpha * unit}px`,
+            left: `${beta * unit}px`
           }}
           key={i}
           id={`img-${i}`}
