@@ -77,19 +77,6 @@ class ConversionPage extends Reflux.Component {
       }
     );
 
-    // this.setState(
-    //   prevState => ({
-    //     alpha: prevState.alpha + this.factor
-    //   }),
-    //   function() {
-    //     if (this.state.alpha === 180) {
-    //       this.factor = -1;
-    //     } else if (this.state.alpha === -180) {
-    //       this.factor = 1;
-    //     }
-    //   }
-    // );
-
     //once alpha 180, start to dec till = -180, after that inc till 180, once you stop th timer, alpha and beta 0
   };
 
@@ -118,17 +105,23 @@ class ConversionPage extends Reflux.Component {
         <Container>
           <Row>
             <Col lg="8" md="8" sm="8" xs="8">
-              {checkPhoto}
+              <div className="checkPhoto">{checkPhoto}</div>
             </Col>
             <Col lg="4" md="4" sm="4" xs="4">
-              <FileControls />
-              <Settings
-                handleChange={this.setValue}
-                handlePlus={this.increaseValue}
-                handleMinus={this.decreaseValue}
-                layers={this.state.layers}
-              />
-              <Simulate handleSimulation={this.simulate} />
+              <Row>
+                <FileControls />
+              </Row>
+              <Row>
+                <Settings
+                  handleChange={this.setValue}
+                  handlePlus={this.increaseValue}
+                  handleMinus={this.decreaseValue}
+                  layers={this.state.layers}
+                />
+              </Row>
+              <Row>
+                <Simulate handleSimulation={this.simulate} />
+              </Row>
             </Col>
           </Row>
         </Container>

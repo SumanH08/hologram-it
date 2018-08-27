@@ -1,6 +1,7 @@
 import React from "react";
 import Reflux from "reflux";
 import {
+  Col,
   TabContent,
   Table,
   TabPane,
@@ -49,90 +50,117 @@ class Settings extends Reflux.Component {
   render() {
     let settings = this.props.layers.map((item, i) => {
       return (
-        <div key={i} className="each-layer">
-          <Table borderless>
-            <tbody>
-              <tr>
-                <td>
-                  <i class="fas fa-ellipsis-v" />
-                </td>
-                <td>
-                  <img className="img-settings" alt="layers" src={item.img} />
-                </td>
-                <td>
-                  <ButtonGroup>
-                    <Button
-                      outline
-                      color="secondary"
-                      onClick={this.handleMinus.bind(this, i)}
-                    >
-                      -
-                    </Button>
-                    <input
-                      style={{ width: "20%" }}
-                      type="number"
-                      pattern="[0-9]*"
-                      value={item.val}
-                      onChange={this.handleChange.bind(this, i)}
-                    />
-                    <Button
-                      outline
-                      color="secondary"
-                      onClick={this.handlePlus.bind(this, i)}
-                    >
-                      +
-                    </Button>
-                  </ButtonGroup>
-                </td>
-              </tr>
-            </tbody>
-          </Table>
+        <div key={i}>
+          <div className="settings-elements">
+            <i class="fas fa-ellipsis-v" />
+            <div className="settings-elements">
+              <img className="img-settings" alt="layers" src={item.img} />
+            </div>
+          </div>
+          <div className="settings-elements">
+            <div style={{ color: "#ccc", padding: "4px" }}>Layer {i + 1}</div>
+            <div
+              className=" btn-group layer-btns"
+              role="group"
+              aria-label="Basic example"
+            >
+              <button
+                type="button"
+                class="btn"
+                onClick={this.handleMinus.bind(this, i)}
+              >
+                -
+              </button>
+              <input
+                style={{ width: "40%" }}
+                type="number"
+                pattern="[0-9]*"
+                value={item.val}
+                onChange={this.handleChange.bind(this, i)}
+              />
+              <button
+                type="button"
+                class="btn"
+                onClick={this.handlePlus.bind(this, i)}
+              >
+                +
+              </button>
+            </div>
+          </div>
         </div>
       );
     });
 
     return (
-      <div className="settings">
-        <Nav tabs>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === "1" })}
-              onClick={() => {
-                this.toggle("1");
-              }}
-            >
-              How it works
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === "2" })}
-              onClick={() => {
-                this.toggle("2");
-              }}
-            >
-              Settings
-            </NavLink>
-          </NavItem>
-        </Nav>
-        <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="1">
-            <div className="app-desc">
-              I wondered, is it better to do the right thing and fail or is it
-              better to do the wrong thing and succeed? Nothing is permanent.
-              Everything changes. That’s the one thing we know for sure in this
-              world. Sometimes I think the surest sign that intelligent life
-              exists elsewhere in the universe is that none of it has tried to
-              contact us.
-            </div>
-          </TabPane>
-          <TabPane tabId="2">
-            <div>{settings}</div>
-          </TabPane>
-        </TabContent>
-      </div>
+      <Col>
+        <div className="settings">
+          <Nav tabs>
+            <NavItem>
+              <NavLink
+                className={classnames({ active: this.state.activeTab === "1" })}
+                onClick={() => {
+                  this.toggle("1");
+                }}
+              >
+                How it works
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                className={classnames({ active: this.state.activeTab === "2" })}
+                onClick={() => {
+                  this.toggle("2");
+                }}
+              >
+                Settings
+              </NavLink>
+            </NavItem>
+          </Nav>
+          <TabContent activeTab={this.state.activeTab}>
+            <TabPane tabId="1">
+              <div className="app-desc">
+                Hobbes ol buddy, <br />I wonder, is it better to do the right
+                thing and fail or is it better to do the wrong thing and
+                succeed?<br /> Nothing is permanent. Everything changes. That’s
+                the one thing we know for sure in this world. <br />Sometimes I
+                think the surest sign that intelligent life exists elsewhere in
+                the universe is that none of it has tried to contact us.
+              </div>
+            </TabPane>
+            <TabPane tabId="2">
+              <div className="d-flex flex-lg-column flex-md-column flex-sm-column">
+                {settings}
+              </div>
+            </TabPane>
+          </TabContent>
+        </div>
+      </Col>
     );
   }
 }
+
+// <ButtonGroup>
+//   <Button
+//     outline
+//     color="secondary"
+//     onClick={this.handleMinus.bind(this, i)}
+//   >
+//     -
+//   </Button>
+//   <input
+//     style={{ width: "20%" }}
+//     type="number"
+//     pattern="[0-9]*"
+//     value={item.val}
+//     onChange={this.handleChange.bind(this, i)}
+//   />
+//   <Button
+//     outline
+//     color="secondary"
+//     onClick={this.handlePlus.bind(this, i)}
+//   >
+//     +
+//   </Button>
+// </ButtonGroup>
 
 export default Settings;

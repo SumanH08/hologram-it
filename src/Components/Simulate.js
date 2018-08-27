@@ -1,5 +1,6 @@
 import React from "react";
 import Reflux from "reflux";
+import { Row, Col, Button } from "reactstrap";
 
 class Simulate extends Reflux.Component {
   handleSimulation = e => {
@@ -8,10 +9,12 @@ class Simulate extends Reflux.Component {
 
   render() {
     return (
-      <div>
-        <input type="checkbox" onChange={this.handleSimulation} />Simulate
-        Device Rotation
-      </div>
+      <Col>
+        <div className="simulateRotation">
+          <input type="checkbox" onChange={this.handleSimulation} />Simulate
+          Device Rotation
+        </div>
+      </Col>
     );
   }
 }

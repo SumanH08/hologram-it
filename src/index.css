@@ -6,8 +6,8 @@ body {
 }
 
 .img-settings {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border: 1px solid #cccccc;
   border-radius: 3px;
 }
@@ -23,17 +23,48 @@ body {
   padding: 24px;
 }
 
+.checkPhoto {
+  margin-right: 12px;
+}
+
 .settings {
   background: #fff;
-  height: 464px;
   overflow: scroll;
+  height: 392px;
+  margin-bottom: 15px;
+}
+
+.fileControls {
+  margin-bottom: 15px;
 }
 
 .app-desc {
   padding: 24px;
 }
 
-.each-layer {
-  padding: 8px;
-  margin: 8px;
+.simulateRotation {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 12px;
+}
+
+.settings-elements {
+  display: inline-block;
+  margin-left: 12px;
+}
+
+.ellipsis {
+  display: table;
+  height: 100px;
+}
+
+.inner {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.layer-btns {
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
