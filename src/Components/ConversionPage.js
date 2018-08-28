@@ -6,6 +6,7 @@ import Settings from "./Settings.js";
 import View from "./View.js";
 import Simulate from "./Simulate.js";
 import FileControls from "./FileControls.js";
+import { LayerSettings } from "./LayerSettings.js";
 
 class ConversionPage extends Reflux.Component {
   constructor(props) {
@@ -26,7 +27,6 @@ class ConversionPage extends Reflux.Component {
   }
 
   setValue = (value, i) => {
-    console.log(value, i);
     var tempArrVal = this.state.layers.slice();
     tempArrVal[i].val = value;
     this.setState({ layers: tempArrVal });
@@ -42,6 +42,10 @@ class ConversionPage extends Reflux.Component {
     var temp2Arr = this.state.layers.slice();
     temp2Arr[i].val -= 1;
     this.setState({ layers: temp2Arr });
+  };
+
+  setLayers = layers => {
+    this.setState({ layers: layers });
   };
 
   simulate = isChecked => {
@@ -119,12 +123,13 @@ class ConversionPage extends Reflux.Component {
             <Col lg="4">
               <FileControls />
               <Settings
+                setLayers={this.setLayers}
+                layers={this.state.layers}
                 handleChange={this.setValue}
                 handlePlus={this.increaseValue}
                 handleMinus={this.decreaseValue}
-                layers={this.state.layers}
               />
-              <Simulate handleSimulation={this.simulate} />{" "}
+              <Simulate handleSimulation={this.simulate} />
             </Col>
           </Row>
         </Container>
@@ -134,3 +139,10 @@ class ConversionPage extends Reflux.Component {
 }
 
 export default ConversionPage;
+
+// <Settings
+//   handleChange={this.setValue}
+//   handlePlus={this.increaseValue}
+//   handleMinus={this.decreaseValue}
+//   layers={this.state.layers}
+// />

@@ -2,6 +2,7 @@ import React from "react";
 import Reflux from "reflux";
 import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
+import { LayerSettings } from "./LayerSettings.js";
 // import { SortableContainer } from "react-anything-sortable";
 
 class Settings extends Reflux.Component {
@@ -39,60 +40,6 @@ class Settings extends Reflux.Component {
   };
 
   render() {
-    let settings = this.props.layers.map((item, i) => {
-      return (
-        <div className="settings-tab" key={i}>
-          <div className="settings-elements">
-            <i className="fas fa-ellipsis-v" />
-            <div className="settings-elements">
-              <img className="img-settings" alt="layers" src={item.img} />
-            </div>
-          </div>
-          <div className="settings-elements">
-            <div style={{ color: "#ccc", paddingBottom: "4px" }}>
-              Layer {i + 1}
-            </div>
-            <div className="input-group mb-3">
-              <div className="input-group-prepend">
-                <button
-                  style={{ borderRight: "none" }}
-                  type="button"
-                  className="btn layer-btns"
-                  onClick={this.handleMinus.bind(this, i)}
-                >
-                  -
-                </button>
-              </div>
-              <input
-                style={{
-                  width: "20%",
-                  borderTop: "1px solid #ccc",
-                  borderBottom: "1px solid #ccc",
-                  borderLeft: "none",
-                  borderRight: "none",
-                  textAlign: "center"
-                }}
-                type="number"
-                pattern="[0-9]*"
-                value={item.val}
-                onChange={this.handleChange.bind(this, i)}
-              />
-              <div className="input-group-append">
-                <button
-                  style={{ borderLeft: "none" }}
-                  type="button"
-                  className="btn layer-btns"
-                  onClick={this.handlePlus.bind(this, i)}
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    });
-
     return (
       <div className="settings">
         <Nav tabs>
@@ -132,64 +79,14 @@ class Settings extends Reflux.Component {
             </div>
           </TabPane>
           <TabPane tabId="2">
-            <div>{settings}</div>
+            <div>
+              <LayerSettings {...this.props} />
+            </div>
           </TabPane>
         </TabContent>
       </div>
     );
   }
 }
-
-// <ButtonGroup>
-//   <Button
-//     outline
-//     color="secondary"
-//     onClick={this.handleMinus.bind(this, i)}
-//   >
-//     -
-//   </Button>
-//   <input
-//     style={{ width: "20%" }}
-//     type="number"
-//     pattern="[0-9]*"
-//     value={item.val}
-//     onChange={this.handleChange.bind(this, i)}
-//   />
-//   <Button
-//     outline
-//     color="secondary"
-//     onClick={this.handlePlus.bind(this, i)}
-//   >
-//     +
-//   </Button>
-// </ButtonGroup>
-
-// <div
-//   className="btn-group layer-btns"
-//   role="group"
-//   aria-label="Basic example"
-// >
-//   <button
-//     type="button"
-//     class="btn"
-//     onClick={this.handleMinus.bind(this, i)}
-//   >
-//     -
-//   </button>
-//   <input
-//     style={{ width: "20%" }}
-//     type="number"
-//     pattern="[0-9]*"
-//     value={item.val}
-//     onChange={this.handleChange.bind(this, i)}
-//   />
-//   <button
-//     type="button"
-//     class="btn"
-//     onClick={this.handlePlus.bind(this, i)}
-//   >
-//     +
-//   </button>
-// </div>
 
 export default Settings;

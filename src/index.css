@@ -97,8 +97,18 @@ input:focus {
 }
 
 .nav-tabs .nav-link {
+  text-align: center;
   border: none;
   background-color: #f7f7f7;
+}
+
+.number-input {
+  width: 20%;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-left: none;
+  border-right: none;
+  text-align: center;
 }
 
 .checkmark {
