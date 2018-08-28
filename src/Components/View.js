@@ -6,7 +6,6 @@ class View extends Reflux.Component {
     const { layers, isRotating, alpha, beta } = this.props;
     let stackImages = layers.map((item, i) => {
       let unit;
-      console.log("VAl here", item.val);
       if (isRotating) {
         unit = item.val;
       } else {

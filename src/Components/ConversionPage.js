@@ -13,7 +13,7 @@ class ConversionPage extends Reflux.Component {
 
     this.state = {
       layers: [8, 7, 6, 5, 4, 3, 2, 1].map(item => {
-        return { img: `https://parallex.netlify.com/${item}.png`, val: 0 };
+        return { img: `/${item}.png`, val: 0 };
       }),
       alpha: 0,
       beta: 0,
@@ -76,8 +76,6 @@ class ConversionPage extends Reflux.Component {
         }
       }
     );
-
-    //once alpha 180, start to dec till = -180, after that inc till 180, once you stop th timer, alpha and beta 0
   };
 
   stopTimer = () => {

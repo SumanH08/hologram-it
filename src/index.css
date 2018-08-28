@@ -49,22 +49,49 @@ body {
   padding: 12px;
 }
 
+.settings-tab {
+  margin-top: 12px;
+  margin-right: 12px;
+}
+
 .settings-elements {
   display: inline-block;
   margin-left: 12px;
-}
-
-.ellipsis {
-  display: table;
-  height: 100px;
-}
-
-.inner {
-  display: table-cell;
   vertical-align: middle;
 }
 
 .layer-btns {
   border: 1px solid #ccc;
   border-radius: 3px;
+}
+
+.no-gutters {
+  padding-right: 0;
+}
+
+.btn:focus,
+button:focus,
+.btn.button.layer-btns:focus,
+input:focus {
+  outline: none;
+}
+
+.changeFileBtn {
+  background: transparent;
+  border: 1px solid #333;
+  color: #000;
+}
+
+.publishBtn {
+  background: transparent;
+  color: #1478fb;
+  border: 1px solid #1478fb;
+}
+
+.publishBtn:hover {
+  background: #1478fb;
+}
+
+.checkmark {
+  background-color: red;
 }

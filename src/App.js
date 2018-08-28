@@ -1,6 +1,5 @@
 import React from "react";
 import Reflux from "reflux";
-import { Container } from "reactstrap";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HomePage from "./Components/HomePage.js";
 import ViewHologramPage from "./Components/ViewHologramPage.js";
