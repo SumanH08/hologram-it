@@ -119,9 +119,6 @@ class ConversionPage extends Reflux.Component {
             <Col lg="4">
               <FileControls />
               <Settings
-                style={{
-                  height: "calc(100vh - 56px - 60px - 38px - 50px - 60px)"
-                }}
                 handleChange={this.setValue}
                 handlePlus={this.increaseValue}
                 handleMinus={this.decreaseValue}

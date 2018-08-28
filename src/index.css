@@ -25,8 +25,12 @@ body {
 
 .settings {
   background: #fff;
-  overflow: scroll;
   margin-bottom: 30px;
+}
+
+.settings-content {
+  overflow: scroll;
+  height: calc(100vh - 56px - 60px - 38px - 50px - 60px - 42px);
 }
 
 .fileControls {
@@ -81,6 +85,20 @@ input:focus {
 
 .publishBtn:hover {
   background: #1478fb;
+}
+
+.nav-tabs .nav-item {
+  width: 50%;
+}
+
+.nav-tabs .nav-link:active {
+  background-color: #eee;
+  border: none;
+}
+
+.nav-tabs .nav-link {
+  border: none;
+  background-color: #f7f7f7;
 }
 
 .checkmark {

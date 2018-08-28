@@ -94,7 +94,7 @@ class Settings extends Reflux.Component {
     });
 
     return (
-      <div style={this.props.style} className="settings">
+      <div className="settings">
         <Nav tabs>
           <NavItem>
             <NavLink
@@ -117,7 +117,10 @@ class Settings extends Reflux.Component {
             </NavLink>
           </NavItem>
         </Nav>
-        <TabContent activeTab={this.state.activeTab}>
+        <TabContent
+          className="settings-content"
+          activeTab={this.state.activeTab}
+        >
           <TabPane tabId="1">
             <div className="app-desc">
               Hobbes ol buddy, <br />I wonder, is it better to do the right
