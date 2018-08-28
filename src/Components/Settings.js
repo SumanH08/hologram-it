@@ -1,8 +1,8 @@
 import React from "react";
 import Reflux from "reflux";
-import { Col, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
+import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
-import { SortableContainer } from "react-anything-sortable";
+// import { SortableContainer } from "react-anything-sortable";
 
 class Settings extends Reflux.Component {
   constructor(props) {
@@ -44,11 +44,9 @@ class Settings extends Reflux.Component {
         <div className="settings-tab" key={i}>
           <div className="settings-elements">
             <i className="fas fa-ellipsis-v" />
-            <SortableContainer>
-              <div className="settings-elements">
-                <img className="img-settings" alt="layers" src={item.img} />
-              </div>
-            </SortableContainer>
+            <div className="settings-elements">
+              <img className="img-settings" alt="layers" src={item.img} />
+            </div>
           </div>
           <div className="settings-elements">
             <div style={{ color: "#ccc", paddingBottom: "4px" }}>
@@ -96,47 +94,45 @@ class Settings extends Reflux.Component {
     });
 
     return (
-      <Col>
-        <div className="settings">
-          <Nav tabs>
-            <NavItem>
-              <NavLink
-                className={classnames({ active: this.state.activeTab === "1" })}
-                onClick={() => {
-                  this.toggle("1");
-                }}
-              >
-                How it works
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                className={classnames({ active: this.state.activeTab === "2" })}
-                onClick={() => {
-                  this.toggle("2");
-                }}
-              >
-                Settings
-              </NavLink>
-            </NavItem>
-          </Nav>
-          <TabContent activeTab={this.state.activeTab}>
-            <TabPane tabId="1">
-              <div className="app-desc">
-                Hobbes ol buddy, <br />I wonder, is it better to do the right
-                thing and fail or is it better to do the wrong thing and
-                succeed?<br /> Nothing is permanent. Everything changes. That’s
-                the one thing we know for sure in this world. <br />Sometimes I
-                think the surest sign that intelligent life exists elsewhere in
-                the universe is that none of it has tried to contact us.
-              </div>
-            </TabPane>
-            <TabPane tabId="2">
-              <div>{settings}</div>
-            </TabPane>
-          </TabContent>
-        </div>
-      </Col>
+      <div style={this.props.style} className="settings">
+        <Nav tabs>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === "1" })}
+              onClick={() => {
+                this.toggle("1");
+              }}
+            >
+              How it works
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === "2" })}
+              onClick={() => {
+                this.toggle("2");
+              }}
+            >
+              Settings
+            </NavLink>
+          </NavItem>
+        </Nav>
+        <TabContent activeTab={this.state.activeTab}>
+          <TabPane tabId="1">
+            <div className="app-desc">
+              Hobbes ol buddy, <br />I wonder, is it better to do the right
+              thing and fail or is it better to do the wrong thing and succeed?<br />{" "}
+              Nothing is permanent. Everything changes. That’s the one thing we
+              know for sure in this world. <br />Sometimes I think the surest
+              sign that intelligent life exists elsewhere in the universe is
+              that none of it has tried to contact us.
+            </div>
+          </TabPane>
+          <TabPane tabId="2">
+            <div>{settings}</div>
+          </TabPane>
+        </TabContent>
+      </div>
     );
   }
 }

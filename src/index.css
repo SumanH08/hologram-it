@@ -20,22 +20,17 @@ body {
 }
 
 .wrapper {
-  padding: 24px;
-}
-
-.checkPhoto {
-  margin-right: 12px;
+  padding-top: 30px;
 }
 
 .settings {
   background: #fff;
   overflow: scroll;
-  height: 392px;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 
 .fileControls {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 
 .app-desc {
@@ -63,10 +58,6 @@ body {
 .layer-btns {
   border: 1px solid #ccc;
   border-radius: 3px;
-}
-
-.no-gutters {
-  padding-right: 0;
 }
 
 .btn:focus,

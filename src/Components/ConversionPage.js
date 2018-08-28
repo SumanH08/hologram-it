@@ -1,6 +1,6 @@
 import React from "react";
 import Reflux from "reflux";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Card, CardBody } from "reactstrap";
 import UploadPhoto from "./UploadPhoto.js";
 import Settings from "./Settings.js";
 import View from "./View.js";
@@ -13,7 +13,7 @@ class ConversionPage extends Reflux.Component {
 
     this.state = {
       layers: [8, 7, 6, 5, 4, 3, 2, 1].map(item => {
-        return { img: `/${item}.png`, val: 0 };
+        return { img: `/img-layers/${item}.png`, val: 0 };
       }),
       alpha: 0,
       beta: 0,
@@ -102,24 +102,32 @@ class ConversionPage extends Reflux.Component {
       <div className="wrapper">
         <Container>
           <Row>
-            <Col lg="8" md="8" sm="8" xs="8">
-              <div className="checkPhoto">{checkPhoto}</div>
+            <Col lg="8">
+              <Card
+                style={{
+                  border: "none",
+                  height: "calc(100vh - 56px - 60px)",
+                  background: "white",
+                  zIndex: -1000
+                }}
+              >
+                <CardBody>
+                  <div className="checkPhoto">{checkPhoto}</div>
+                </CardBody>
+              </Card>
             </Col>
-            <Col lg="4" md="4" sm="4" xs="4">
-              <Row>
-                <FileControls />
-              </Row>
-              <Row>
-                <Settings
-                  handleChange={this.setValue}
-                  handlePlus={this.increaseValue}
-                  handleMinus={this.decreaseValue}
-                  layers={this.state.layers}
-                />
-              </Row>
-              <Row>
-                <Simulate handleSimulation={this.simulate} />
-              </Row>
+            <Col lg="4">
+              <FileControls />
+              <Settings
+                style={{
+                  height: "calc(100vh - 56px - 60px - 38px - 50px - 60px)"
+                }}
+                handleChange={this.setValue}
+                handlePlus={this.increaseValue}
+                handleMinus={this.decreaseValue}
+                layers={this.state.layers}
+              />
+              <Simulate handleSimulation={this.simulate} />{" "}
             </Col>
           </Row>
         </Container>
