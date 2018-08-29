@@ -114,7 +114,11 @@ export class LayerSettings extends React.Component {
                         <i className="fas fa-ellipsis-v" />
                       </div>
                       <div className="settings-elements">
-                        <img className="img-settings" src={item.img} />
+                        <img
+                          className="img-settings"
+                          src={item.img}
+                          alt="eachimg"
+                        />
                       </div>
                       <div className="settings-elements">
                         <div style={{ color: "#ccc", paddingBottom: "4px" }}>

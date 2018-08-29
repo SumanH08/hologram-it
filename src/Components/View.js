@@ -15,8 +15,8 @@ class View extends Reflux.Component {
         <img
           style={{
             zIndex: -1 * i,
-            top: `${alpha * unit}px`,
-            left: `${beta * unit}px`
+            top: `${Math.sin(alpha * unit * 10)}px`,
+            left: `${Math.cos(beta * unit * 10)}px`
           }}
           key={i}
           id={`img-${i}`}

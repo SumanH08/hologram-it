@@ -5,6 +5,7 @@ import HomePage from "./Components/HomePage.js";
 import ViewHologramPage from "./Components/ViewHologramPage.js";
 import ConversionPage from "./Components/ConversionPage.js";
 import NavMenu from "./Components/NavMenu.js";
+import { UploadPage } from "./Components/UploadPage.js";
 
 class App extends Reflux.Component {
   render() {
@@ -14,7 +15,8 @@ class App extends Reflux.Component {
           <div>
             <NavMenu />
             <Switch>
-              <Route path="/new" component={ConversionPage} />
+              <Route path="/edit/:imageid" component={ConversionPage} />
+              <Route path="/new" component={UploadPage} />
               <Route path="/view" component={ViewHologramPage} />
               <Route path="/" component={HomePage} />
             </Switch>

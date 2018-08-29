@@ -111,6 +111,13 @@ input:focus {
   text-align: center;
 }
 
-.checkmark {
-  background-color: red;
+.sampleImage {
+  background: white;
+  display: inline-block;
+  width: 124px;
+  height: 124px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  margin-left: 12px;
+  margin-right: 12px;
 }

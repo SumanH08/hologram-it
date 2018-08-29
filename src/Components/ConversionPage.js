@@ -1,30 +1,57 @@
 import React from "react";
 import Reflux from "reflux";
 import { Container, Row, Col, Card, CardBody } from "reactstrap";
-import UploadPhoto from "./UploadPhoto.js";
 import Settings from "./Settings.js";
 import View from "./View.js";
 import Simulate from "./Simulate.js";
 import FileControls from "./FileControls.js";
-import { LayerSettings } from "./LayerSettings.js";
+import axios from "axios";
+import loading from "../img/loading.svg";
 
 class ConversionPage extends Reflux.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      layers: [8, 7, 6, 5, 4, 3, 2, 1].map(item => {
-        return { img: `/img-layers/${item}.png`, val: 0 };
-      }),
+      layers: [],
       alpha: 0,
       beta: 0,
       gamma: 0,
-      isRotating: false
+      isRotating: false,
+      loading: true
     };
-
     this.timerId = false;
     this.factor = 1;
   }
+
+  componentDidMount() {
+    console.log("Prevprops here", this.props.match.params);
+    var id = this.props.match.params.imageid;
+    if (this.props.match.params.imageid === "whale") {
+      console.log("Bringing up whale picture");
+    } else {
+      axios({
+        method: "get",
+        url: `https://495e61cc.ngrok.io/holo/${id}`
+      })
+        .then(this.getImageFromAPI)
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
+
+  getImageFromAPI = res => {
+    this.setState({ loading: false });
+    var tempArr = this.state.layers.slice();
+    console.log("res here", res.data.images);
+    tempArr = res.data.images.map((item, i) => {
+      return { img: `https://495e61cc.ngrok.io${item}`, val: 0 };
+    });
+
+    this.setState({ layers: tempArr });
+    console.log(this.state.layers);
+  };
 
   setValue = (value, i) => {
     var tempArrVal = this.state.layers.slice();
@@ -48,7 +75,7 @@ class ConversionPage extends Reflux.Component {
     this.setState({ layers: layers });
   };
 
-  simulate = isChecked => {
+  toggleSimulation = isChecked => {
     // this.isRotating = isChecked;
     this.setState({ isRotating: isChecked }, function() {
       if (this.state.isRotating) {
@@ -63,7 +90,7 @@ class ConversionPage extends Reflux.Component {
   // TODO: ask eb why when i call this,simulateValue(), it wont work, but it works if i say this.simulateValues without brackets. how does the this work here
 
   setTimer = () => {
-    this.timerId = setInterval(this.simulateValues, 50);
+    this.timerId = setInterval(this.simulateValues, 500);
   };
 
   simulateValues = () => {
@@ -88,61 +115,56 @@ class ConversionPage extends Reflux.Component {
   };
 
   render() {
-    let checkPhoto;
-    if (this.state.layers == null) {
-      checkPhoto = <UploadPhoto />;
+    if (this.state.loading) {
+      return (
+        <div style={{ textAlign: "center", marginTop: "64px" }}>
+          Loading<img src={loading} />
+        </div>
+      );
     } else {
-      checkPhoto = (
-        <View
-          isRotating={this.state.isRotating}
-          alpha={this.state.alpha}
-          beta={this.state.beta}
-          gamma={this.state.gamma}
-          layers={this.state.layers}
-        />
+      return (
+        <div className="wrapper">
+          <Container>
+            <Row>
+              <Col lg="8">
+                <Card
+                  style={{
+                    border: "none",
+                    height: "calc(100vh - 56px - 60px)",
+                    background: "white",
+                    zIndex: -1000
+                  }}
+                >
+                  <CardBody>
+                    <div>
+                      <View
+                        isRotating={this.state.isRotating}
+                        alpha={this.state.alpha}
+                        beta={this.state.beta}
+                        gamma={this.state.gamma}
+                        layers={this.state.layers}
+                      />
+                    </div>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col lg="4">
+                <FileControls />
+                <Settings
+                  setLayers={this.setLayers}
+                  layers={this.state.layers}
+                  handleChange={this.setValue}
+                  handlePlus={this.increaseValue}
+                  handleMinus={this.decreaseValue}
+                />
+                <Simulate handleSimulation={this.toggleSimulation} />
+              </Col>
+            </Row>
+          </Container>
+        </div>
       );
     }
-    return (
-      <div className="wrapper">
-        <Container>
-          <Row>
-            <Col lg="8">
-              <Card
-                style={{
-                  border: "none",
-                  height: "calc(100vh - 56px - 60px)",
-                  background: "white",
-                  zIndex: -1000
-                }}
-              >
-                <CardBody>
-                  <div className="checkPhoto">{checkPhoto}</div>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col lg="4">
-              <FileControls />
-              <Settings
-                setLayers={this.setLayers}
-                layers={this.state.layers}
-                handleChange={this.setValue}
-                handlePlus={this.increaseValue}
-                handleMinus={this.decreaseValue}
-              />
-              <Simulate handleSimulation={this.simulate} />
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    );
   }
 }
 
 export default ConversionPage;
-
-// <Settings
-//   handleChange={this.setValue}
-//   handlePlus={this.increaseValue}
-//   handleMinus={this.decreaseValue}
-//   layers={this.state.layers}
-// />
