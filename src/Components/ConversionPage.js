@@ -32,7 +32,7 @@ class ConversionPage extends Reflux.Component {
     } else {
       axios({
         method: "get",
-        url: `https://495e61cc.ngrok.io/holo/${id}`
+        url: `http://138.197.206.149:8000/holo/${id}`
       })
         .then(this.getImageFromAPI)
         .catch(err => {
@@ -46,7 +46,7 @@ class ConversionPage extends Reflux.Component {
     var tempArr = this.state.layers.slice();
     console.log("res here", res.data.images);
     tempArr = res.data.images.map((item, i) => {
-      return { img: `https://495e61cc.ngrok.io${item}`, val: 0 };
+      return { img: `http://138.197.206.149:8000${item}`, val: 0 };
     });
 
     this.setState({ layers: tempArr });

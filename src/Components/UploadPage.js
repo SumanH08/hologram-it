@@ -30,7 +30,7 @@ export class UploadPage extends Reflux.Component {
 
     axios({
       method: "post",
-      url: "https://495e61cc.ngrok.io/upload/",
+      url: "http://138.197.206.149:8000/upload/",
       data: data,
       onUploadProgress: function(progressEvent) {
         var temp = Math.round(progressEvent.loaded * 100 / progressEvent.total);
@@ -73,7 +73,7 @@ export class UploadPage extends Reflux.Component {
             }}
           >
             <CardBody>
-              <h4 style={{ textAlign: "center" }}>Upload photo here</h4>
+              <h4 style={{ textAlign: "center" }}>Upload a PSD file here</h4>
               <Form
                 style={{ textAlign: "center" }}
                 onSubmit={this.handleSubmit}
@@ -87,7 +87,7 @@ export class UploadPage extends Reflux.Component {
                   />
                 </FormGroup>
                 <Button block type="submit">
-                  Submit
+                  Upload
                 </Button>
               </Form>
               <div style={{ marginTop: "24px" }}>
