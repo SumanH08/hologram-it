@@ -11,7 +11,6 @@ import loading from "../img/loading.svg";
 class ConversionPage extends Reflux.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       layers: [],
       alpha: 0,
@@ -22,17 +21,26 @@ class ConversionPage extends Reflux.Component {
     };
     this.timerId = false;
     this.factor = 1;
+    this.id = 0;
   }
 
   componentDidMount() {
     console.log("Prevprops here", this.props.match.params);
-    var id = this.props.match.params.imageid;
+    this.id = this.props.match.params.imageid;
+    console.log("id here", this.id);
     if (this.props.match.params.imageid === "whale") {
       console.log("Bringing up whale picture");
+      var tempLayers;
+      tempLayers = [8, 7, 6, 5, 4, 3, 2, 1].map(item => {
+        return { img: `/img-layers/${item}.png`, val: 0 };
+      });
+      this.setState({ layers: tempLayers }, function() {
+        this.setState({ loading: false });
+      });
     } else {
       axios({
         method: "get",
-        url: `http://138.197.206.149:8000/holo/${id}`
+        url: `http://138.197.206.149:8000/holo/${this.id}`
       })
         .then(this.getImageFromAPI)
         .catch(err => {
@@ -44,13 +52,28 @@ class ConversionPage extends Reflux.Component {
   getImageFromAPI = res => {
     this.setState({ loading: false });
     var tempArr = this.state.layers.slice();
-    console.log("res here", res.data.images);
     tempArr = res.data.images.map((item, i) => {
       return { img: `http://138.197.206.149:8000${item}`, val: 0 };
     });
 
+    tempArr.shift();
+    tempArr = tempArr.reverse();
     this.setState({ layers: tempArr });
-    console.log(this.state.layers);
+  };
+
+  publishImage = () => {
+    axios({
+      method: "post",
+      url: `http://138.197.206.149:8000/publish/${this.id}`
+    })
+      .then(this.getUpdatedLink)
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  getUpdatedLink = () => {
+    console.log("Updated link here");
   };
 
   setValue = (value, i) => {
@@ -76,7 +99,6 @@ class ConversionPage extends Reflux.Component {
   };
 
   toggleSimulation = isChecked => {
-    // this.isRotating = isChecked;
     this.setState({ isRotating: isChecked }, function() {
       if (this.state.isRotating) {
         this.setTimer();
@@ -86,8 +108,6 @@ class ConversionPage extends Reflux.Component {
       }
     });
   };
-
-  // TODO: ask eb why when i call this,simulateValue(), it wont work, but it works if i say this.simulateValues without brackets. how does the this work here
 
   setTimer = () => {
     this.timerId = setInterval(this.simulateValues, 500);
@@ -118,7 +138,7 @@ class ConversionPage extends Reflux.Component {
     if (this.state.loading) {
       return (
         <div style={{ textAlign: "center", marginTop: "64px" }}>
-          Loading<img src={loading} />
+          Loading<img src={loading} alt="Loading-img" />
         </div>
       );
     } else {
@@ -149,7 +169,7 @@ class ConversionPage extends Reflux.Component {
                 </Card>
               </Col>
               <Col lg="4">
-                <FileControls />
+                <FileControls publishImage={this.publishImage} />
                 <Settings
                   setLayers={this.setLayers}
                   layers={this.state.layers}

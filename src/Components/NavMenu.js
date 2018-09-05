@@ -44,7 +44,7 @@ class NavMenu extends React.Component {
             </NavItem>
             <NavItem>
               <NavLink style={{ color: "#eeeeee" }} href="/logout">
-                Logout
+                Login
               </NavLink>
             </NavItem>
           </Nav>

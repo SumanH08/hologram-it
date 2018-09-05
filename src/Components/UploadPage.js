@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import { Progress } from "reactstrap";
 import axios from "axios";
+import whaleImage from "../img/whaleImage.jpg";
 
 export class UploadPage extends Reflux.Component {
   constructor(props) {
@@ -35,7 +36,6 @@ export class UploadPage extends Reflux.Component {
       onUploadProgress: function(progressEvent) {
         var temp = Math.round(progressEvent.loaded * 100 / progressEvent.total);
         self.setState({ percentCompleted: temp });
-        console.log(temp);
       }
     })
       .then(this.completed)
@@ -52,7 +52,7 @@ export class UploadPage extends Reflux.Component {
     }
   };
 
-  fileOnChange = event => {
+  fileOnChange = (event, img) => {
     this.setState({ file: event.target.files[0] });
   };
 
@@ -61,6 +61,14 @@ export class UploadPage extends Reflux.Component {
   };
 
   render() {
+    let progressBar = "";
+    if (this.state.file !== null) {
+      progressBar = (
+        <div style={{ marginTop: "24px" }}>
+          <Progress color="success" value={this.state.percentCompleted} />
+        </div>
+      );
+    }
     return (
       <div>
         <Container>
@@ -80,6 +88,7 @@ export class UploadPage extends Reflux.Component {
               >
                 <FormGroup style={{ textAlign: "center" }}>
                   <Input
+                    required
                     type="file"
                     id="file"
                     accept="image/psd"
@@ -90,29 +99,20 @@ export class UploadPage extends Reflux.Component {
                   Upload
                 </Button>
               </Form>
-              <div style={{ marginTop: "24px" }}>
-                <Progress color="success" value={this.state.percentCompleted} />
-              </div>
+              {progressBar}
             </CardBody>
           </Card>
+          <h6 style={{ textAlign: "center" }}>
+            or select the sample from below
+          </h6>
           <div style={{ textAlign: "center" }}>
-            <div
-              className="sampleImage"
-              onClick={this.uploadSample.bind(this, "whale")}
-            >
-              <img id="sample-1" src="hi.jpg" />
-            </div>
-            <div
-              className="sampleImage"
-              onClick={this.uploadSample.bind(this, "fox")}
-            >
-              <img id="sample-1" src="hi.jpg" />
-            </div>
-            <div
-              className="sampleImage"
-              onClick={this.uploadSample.bind(this, "dolphin")}
-            >
-              <img id="sample-1" src="hi.jpg" />
+            <div onClick={this.uploadSample.bind(this, "whale")}>
+              <img
+                className="sampleImage"
+                id="sample-1"
+                src={whaleImage}
+                alt="whale-img"
+              />
             </div>
           </div>
         </Container>
@@ -120,8 +120,3 @@ export class UploadPage extends Reflux.Component {
     );
   }
 }
-
-// if (this.state.file !== null) {
-//   console.log("Redirect here");
-//   return <Redirect to="/edit/id" />;
-// }

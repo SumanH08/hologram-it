@@ -111,13 +111,16 @@ input:focus {
   text-align: center;
 }
 
+.intro-text {
+  max-width: 576px;
+  margin: auto;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
 .sampleImage {
-  background: white;
-  display: inline-block;
-  width: 124px;
+  width: 142px;
   height: 124px;
-  border: 1px solid #eee;
+  cursor: pointer;
   border-radius: 3px;
-  margin-left: 12px;
-  margin-right: 12px;
 }
