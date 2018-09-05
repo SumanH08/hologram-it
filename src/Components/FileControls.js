@@ -28,12 +28,20 @@ class FileControls extends Reflux.Component {
     }
   }
 
+  onHandleFileChange = () => {
+    window.location.href = "/new/";
+  };
+
   render() {
     return (
       <div className="fileControls">
         <Row>
           <Col>
-            <Button block className="changeFileBtn">
+            <Button
+              block
+              className="changeFileBtn"
+              onClick={this.onHandleFileChange}
+            >
               Change File
             </Button>
           </Col>
